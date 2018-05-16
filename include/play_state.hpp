@@ -17,10 +17,13 @@ class PlayState : public State {
 		sf::RectangleShape mRightBound;
 		EntityManager mEntityManager;
 		sf::Clock mGameClock;
-		sf::Clock mSpawnClock;	
-		//sf::Time mTotalElapsedTime;
+		sf::Clock mSpawnClock;
 		int mPlayerScore;
 		int mEntityIndex;
+		float mSecondsElapsed;
+		int mLowerSpeed;
+		int mUpperSpeed;
+		float mSpawnFreq;
 		static std::string mScoreText;
 		static const float mPlayerSpeed;
 		bool mIsMovingLeft;
@@ -36,4 +39,5 @@ class PlayState : public State {
 		void renderScore();
 		void renderTime();
 		void generateEntity();
+		void updateDifficulty();
 };

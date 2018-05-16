@@ -7,7 +7,8 @@ PlayState::PlayState(StateMachine& machine, sf::RenderWindow& window,
 			State(machine, window, assets), 
 			mEntityManager(mWindow, mAssets), mBackground(),
 			mPlayer(), mIsMovingLeft(false), mIsMovingRight(false),
-			mPlayerScore(0), mEntityIndex(0)
+			mPlayerScore(0), mEntityIndex(0), mLowerSpeed(40),
+			mUpperSpeed(60), mSpawnFreq(0.75f)
 {
 	std::srand(static_cast<unsigned int>(std::time(NULL)));
 	
@@ -85,7 +86,9 @@ void PlayState::handleInput(sf::Keyboard::Key key, bool isPressed)
 // updates the game logic
 void PlayState::update(const sf::Time& dt)
 {
-	if (mSpawnClock.getElapsedTime().asSeconds() > 0.5f)
+	updateDifficulty();
+
+	if (mSpawnClock.getElapsedTime().asSeconds() > mSpawnFreq)
 	{
 		generateEntity();
 		mSpawnClock.restart();
@@ -164,9 +167,22 @@ void PlayState::generateEntity()
 	else
 		entityType = "fire";
 	float entityPosition = rand() % 101;
-	float entitySpeed = (rand() % 5 + 10) * 10.0f;
+	float entitySpeed = rand() % (mUpperSpeed - mLowerSpeed) + mLowerSpeed;
 	std::string stringIndex = std::to_string(mEntityIndex);
 
 	mEntityManager.addEntity(entityType, stringIndex, entityPosition, entitySpeed);
 	++mEntityIndex;
+}
+
+void PlayState::updateDifficulty()
+{
+	mSecondsElapsed = mGameClock.getElapsedTime().asSeconds();
+	int x = (mSecondsElapsed / 10) - 2;
+
+	if (mSecondsElapsed >= 20.0f && mSecondsElapsed < 125.0f)
+	{
+		mLowerSpeed = 40 + (2*x*x)/3;
+		mUpperSpeed = 60 + x*x;
+		mSpawnFreq = 0.75 - 0.05*x;
+	}
 }
