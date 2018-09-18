@@ -1,6 +1,6 @@
 #pragma once
-#include "SFML/Window.hpp"
-#include "SFML/Graphics.hpp"
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 #include "state_machine.hpp"
 #include "main_menu_state.hpp"
 #include "resource_manager.hpp"

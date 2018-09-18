@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 
 class ResourceManager {
 	private:

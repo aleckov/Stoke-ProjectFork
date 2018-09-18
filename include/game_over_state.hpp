@@ -1,5 +1,5 @@
 #pragma once
-#include "SFML/Window.hpp"
+#include <SFML/Window.hpp>
 #include "state_machine.hpp"
 #include "play_state.hpp"
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include "SFML/Window.hpp"
+#include <SFML/Window.hpp>
 #include "state_machine.hpp"
 #include "game_over_state.hpp"
 #include "entity_manager.hpp"
